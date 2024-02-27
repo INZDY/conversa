@@ -14,7 +14,7 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import { FaFacebook, FaLock } from "react-icons/fa";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
 import Button from "../ui/inputs/Button";
-import { login } from "./actions";
+import { login, signup } from "./actions";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -44,15 +44,17 @@ function AuthForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
+    console.log(data);
 
     if (variant === "REGISTER") {
       //Axios register
+      console.log("Trying to Signup");
+      signup(data);
     }
     if (variant === "LOGIN") {
       //NextAuth Signin
       console.log("Trying to Login");
-      console.log();
-      // login();
+      login(data);
     }
   };
 
