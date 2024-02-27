@@ -14,6 +14,7 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import { FaFacebook, FaLock } from "react-icons/fa";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
 import Button from "../ui/inputs/Button";
+import { login } from "./actions";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -35,7 +36,7 @@ function AuthForm() {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      naame: "",
+      name: "",
       email: "",
       password: "",
     },
@@ -49,6 +50,9 @@ function AuthForm() {
     }
     if (variant === "LOGIN") {
       //NextAuth Signin
+      console.log("Trying to Login");
+      console.log();
+      // login();
     }
   };
 

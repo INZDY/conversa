@@ -28,7 +28,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="flex items-center h-12  bg-gray-100 sm:rounded-lg border">
-      <div className="px-4">
+      <div className="px-4 opacity-50">
         <Icon className="size-4" />
       </div>
       <div>
