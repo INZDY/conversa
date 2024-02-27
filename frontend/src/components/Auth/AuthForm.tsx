@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { Provider, useCallback } from "react";
 import { useState } from "react";
 import {
   FieldValues,
@@ -14,7 +14,7 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import { FaFacebook, FaLock } from "react-icons/fa";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
 import Button from "../ui/inputs/Button";
-import { login, signup } from "./actions";
+import { googleLogin, login, signup } from "./actions";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -56,12 +56,19 @@ function AuthForm() {
       console.log("Trying to Login");
       login(data);
     }
+
+    setIsLoading(false);
   };
 
   const socialAction = (action: string) => {
     console.log("disabled!");
     setIsLoading(true);
     //NextAuth Social SignIn
+    if (action === "google") {
+      googleLogin();
+    }
+
+    setIsLoading(false);
   };
 
   return (

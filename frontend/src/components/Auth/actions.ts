@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import { FieldValues } from 'react-hook-form'
+import { Provider } from '@supabase/supabase-js'
 
 export async function login(formData: FieldValues) {
   const supabase = createClient()
@@ -39,6 +40,23 @@ export async function signup(formData: FieldValues) {
   }
 
   const { error } = await supabase.auth.signUp(data)
+
+  if (error) {
+    redirect('/error')
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/chat')
+}
+
+export async function googleLogin() {
+  const supabase = createClient()
+
+  // type-casting here for convenience
+  // in practice, you should validate your inputs
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google'
+  })
 
   if (error) {
     redirect('/error')
