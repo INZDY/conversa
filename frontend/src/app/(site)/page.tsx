@@ -1,6 +1,15 @@
 import AuthForm from "@/components/auth/AuthForm";
+import readuserSession from "@/lib/actions";
+import { redirect } from "next/navigation";
 
-export default function page() {
+export default async function page() {
+  const { data } = await readuserSession();
+
+  //page protection
+  if (data.session) {
+    return redirect("/chat");
+  }
+  
   return (
     <div
       className="
@@ -13,9 +22,8 @@ export default function page() {
         lg:px-8 
         bg-gray-700
       "
-      >
+    >
       <AuthForm />
-      
     </div>
   );
 }

@@ -1,7 +1,20 @@
+import SignOut from "@/components/auth/SignOut";
+import readuserSession from "@/lib/actions";
+import { redirect } from "next/navigation";
 import React from "react";
 
-function Chat() {
-  return <div>Chat</div>;
-}
+export default async function chat() {
+  const { data } = await readuserSession();
 
-export default Chat;
+  //page protection
+  if (!data.session) {
+    return redirect("/");
+  }
+
+  return (
+    <div>
+      <div>chat</div>
+      <SignOut />
+    </div>
+  );
+}
