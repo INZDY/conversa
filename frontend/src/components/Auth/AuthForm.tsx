@@ -56,8 +56,6 @@ function AuthForm() {
       console.log("Trying to Login");
       login(data);
     }
-
-    setIsLoading(false);
   };
 
   const socialAction = (action: string) => {
@@ -67,8 +65,6 @@ function AuthForm() {
     if (action === "google") {
       googleLogin();
     }
-
-    setIsLoading(false);
   };
 
   return (

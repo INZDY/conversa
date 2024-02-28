@@ -5,10 +5,9 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import { FieldValues } from 'react-hook-form'
-import { Provider } from '@supabase/supabase-js'
 
 export async function login(formData: FieldValues) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
@@ -30,7 +29,7 @@ export async function login(formData: FieldValues) {
 }
 
 export async function signup(formData: FieldValues) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
@@ -50,7 +49,7 @@ export async function signup(formData: FieldValues) {
 }
 
 export async function googleLogin() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
@@ -61,7 +60,4 @@ export async function googleLogin() {
   if (error) {
     redirect('/error')
   }
-
-  revalidatePath('/', 'layout')
-  redirect('/chat')
 }
