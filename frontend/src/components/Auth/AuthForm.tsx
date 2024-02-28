@@ -11,10 +11,11 @@ import {
 import Input from "@/components/ui/inputs/Input";
 import AuthSocialButton from "./AuthSocialButton";
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { FaFacebook, FaLock } from "react-icons/fa";
+import { FaGithub, FaLock } from "react-icons/fa";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
 import Button from "../ui/inputs/Button";
-import { googleLogin, login, signup } from "./actions";
+import { login, signup } from "./actions";
+import OAuthLogin from "./OAuth";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -47,7 +48,7 @@ function AuthForm() {
     console.log(data);
 
     if (variant === "REGISTER") {
-      //Axios register
+      console.log("Trying to Signup");
       const result = await signup(data);
 
       //parse response
@@ -61,18 +62,35 @@ function AuthForm() {
       }
     }
     if (variant === "LOGIN") {
-      //NextAuth Signin
       console.log("Trying to Login");
-      await login(data);
+      const result = await login(data);
+
+      //parse response
+      const { error } = JSON.parse(result);
+
+      //show message
+      if (error?.message) {
+        console.log(error.message);
+      } else {
+        console.log("Succesful");
+      }
     }
   };
 
-  const socialAction = async (action: string) => {
-    console.log("disabled!");
+  const socialAction = async (oauthProvider: string) => {
     setIsLoading(true);
-    //NextAuth Social SignIn
-    if (action === "google") {
-      await googleLogin();
+    //OAuth Social SignIn
+
+    const result = await OAuthLogin(oauthProvider);
+
+    //parse response
+    const { error } = JSON.parse(result);
+
+    //show message
+    if (error?.message) {
+      console.log(error.message);
+    } else {
+      console.log("Succesful");
     }
   };
 
@@ -156,8 +174,8 @@ function AuthForm() {
             onClick={() => socialAction("google")}
           />
           <AuthSocialButton
-            icon={FaFacebook}
-            onClick={() => socialAction("facebook")}
+            icon={FaGithub}
+            onClick={() => socialAction("github")}
           />
         </div>
 
