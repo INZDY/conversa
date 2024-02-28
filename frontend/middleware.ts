@@ -1,4 +1,4 @@
-import { updateSession } from '@/utils/supabase/middleware'
+import { updateSession } from '@/lib/supabase/middleware'
 import { NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/src/app/utils/supabase/*',
+  matcher: ['/src/app/lib/supabase/*',
     /*
      * Match all request paths except for the ones starting with:
      * - _next/static (static files)
