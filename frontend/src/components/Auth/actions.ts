@@ -1,23 +1,21 @@
 'use server'
 
+import createSupabaseServerClient from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-import { createClient } from '@/utils/supabase/server'
+
 import { FieldValues } from 'react-hook-form'
 
 export async function login(formData: FieldValues) {
-  const supabase = await createClient()
+  const supabase = await createSupabaseServerClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const data = {
-    // email: formData.get('email') as string,
-    // password: formData.get('password') as string,
     email: formData.email,
     password: formData.password
   }
 
+  console.log('trying to login via email')
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
@@ -29,32 +27,26 @@ export async function login(formData: FieldValues) {
 }
 
 export async function signup(formData: FieldValues) {
-  const supabase = await createClient()
+  const supabase = await createSupabaseServerClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const data = {
     email: formData.email,
     password: formData.password
   }
 
-  const { error } = await supabase.auth.signUp(data)
+  console.log('trying to signup via email')
+  const result = await supabase.auth.signUp(data)
 
-  if (error) {
-    redirect('/error')
-  }
-
-  revalidatePath('/', 'layout')
-  redirect('/chat')
+  return JSON.stringify(result);
 }
 
 export async function googleLogin() {
-  const supabase = await createClient()
+  const supabase = await createSupabaseServerClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
+  console.log('trying to login via google')
   const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google'
+    provider: 'google',
+    options: {redirectTo: `http://localhost:3000/auth/callback`}
   })
 
   if (error) {

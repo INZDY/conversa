@@ -42,28 +42,37 @@ function AuthForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     console.log(data);
 
     if (variant === "REGISTER") {
       //Axios register
-      console.log("Trying to Signup");
-      signup(data);
+      const result = await signup(data);
+
+      //parse response
+      const { error } = JSON.parse(result);
+
+      //show message
+      if (error?.message) {
+        console.log(error.message);
+      } else {
+        console.log("Succesful");
+      }
     }
     if (variant === "LOGIN") {
       //NextAuth Signin
       console.log("Trying to Login");
-      login(data);
+      await login(data);
     }
   };
 
-  const socialAction = (action: string) => {
+  const socialAction = async (action: string) => {
     console.log("disabled!");
     setIsLoading(true);
     //NextAuth Social SignIn
     if (action === "google") {
-      googleLogin();
+      await googleLogin();
     }
   };
 
