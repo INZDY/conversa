@@ -9,17 +9,21 @@ export const metadata: Metadata = {
   // description: "Conversa Chat Application",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} bg-slate-800 text-slate-100 container mx-auto p-4`}
-      >
+      <body className={`${inter.className}`}>
+        {/* <header className="flex h-16 border border-black text-black">
+          Header
+        </header> */}
         {children}
+        {/* <footer className="flex h-16 border border-black text-black">
+          Footer
+        </footer> */}
       </body>
     </html>
   );
