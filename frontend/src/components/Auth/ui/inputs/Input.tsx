@@ -9,11 +9,30 @@ interface InputProps {
   icon: IconType;
   label: string;
   id: string;
-  type?: string;
+  type: string;
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
   disabled?: boolean;
+}
+
+type InputType = "username" | "email" | "password";
+const validationRules: Record<InputType, object> = {
+  username: { required: { value: true, message: "Username is required" } },
+  email: {
+    required: { value: true, message: "Email is required" },
+    pattern:
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+  },
+  password: {
+    required: { value: true, message: "Password is required" },
+    minLength: 8,
+    maxLength: 20,
+  },
+};
+
+function getValidation(type: InputType): object {
+  return validationRules[type] || {};
 }
 
 const Input: React.FC<InputProps> = ({
@@ -26,6 +45,7 @@ const Input: React.FC<InputProps> = ({
   errors,
   disabled,
 }) => {
+  console.log(errors.root?.message);
   return (
     <div className="flex items-center h-12  bg-gray-100 sm:rounded-lg border">
       <div className="px-4 opacity-50">
@@ -38,7 +58,8 @@ const Input: React.FC<InputProps> = ({
           type={type}
           autoComplete={id}
           disabled={disabled}
-          {...register(id, { required })}
+          {...register(id, { required: true })}
+          // {...register(id, getValidation("username"))}
           className={clsx(
             `bg-transparent
             form-input
@@ -50,6 +71,7 @@ const Input: React.FC<InputProps> = ({
           )}
         />
       </div>
+      <p>{errors.root?.message || "None"}</p>
     </div>
   );
 };

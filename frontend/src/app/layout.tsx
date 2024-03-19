@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +18,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        {/* <header className="flex h-16 border border-black text-black">
-          Header
-        </header> */}
         {children}
-        {/* <footer className="flex h-16 border border-black text-black">
-          Footer
-        </footer> */}
+        <Toaster />
       </body>
     </html>
   );

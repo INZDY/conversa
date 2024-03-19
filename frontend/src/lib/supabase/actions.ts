@@ -2,7 +2,7 @@
 "use server";
 
 import React from "react";
-import createSupabaseServerClient from "./supabase/server";
+import createSupabaseServerClient from "./server";
 
 export default async function readuserSession() {
   const supabase = await createSupabaseServerClient();

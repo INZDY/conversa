@@ -1,5 +1,5 @@
 import AuthForm from "@/components/auth/AuthForm";
-import readuserSession from "@/lib/actions";
+import readuserSession from "@/lib/supabase/actions";
 import { redirect } from "next/navigation";
 
 export default async function page() {
@@ -9,7 +9,7 @@ export default async function page() {
   if (data.session) {
     return redirect("/chat");
   }
-  
+
   return (
     <div
       className="
