@@ -8,18 +8,19 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import Input from "@/components/ui/inputs/Input";
+import Input from "@/components/auth/ui/inputs/Input";
 import AuthSocialButton from "./AuthSocialButton";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { FaGithub, FaLock } from "react-icons/fa";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
-import Button from "../ui/inputs/Button";
+import Button from "./ui/inputs/Button";
 import { login, signup } from "./actions";
 import OAuthLogin from "./OAuth";
+import toast from "react-hot-toast";
 
 type Variant = "LOGIN" | "REGISTER";
 
-function AuthForm() {
+export default function AuthForm() {
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,12 +30,16 @@ function AuthForm() {
     } else {
       setVariant("LOGIN");
     }
+    reset();
   }, [variant]);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
+    reset,
+    getValues,
+    control,
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
@@ -43,12 +48,13 @@ function AuthForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setIsLoading(true);
+  const onSubmit = async (data: FieldValues) => {
     console.log(data);
+    setIsLoading(true);
 
     if (variant === "REGISTER") {
       console.log("Trying to Signup");
+      toast.loading("Signing up...");
       const result = await signup(data);
 
       //parse response
@@ -56,13 +62,16 @@ function AuthForm() {
 
       //show message
       if (error?.message) {
-        console.log(error.message);
+        toast.error(error.message);
+        setIsLoading(false);
       } else {
-        console.log("Succesful");
+        toast.success("Check your inbox to confirm registration");
+        console.log("Successful");
       }
     }
     if (variant === "LOGIN") {
       console.log("Trying to Login");
+      toast.loading("Logging in...");
       const result = await login(data);
 
       //parse response
@@ -70,17 +79,20 @@ function AuthForm() {
 
       //show message
       if (error?.message) {
-        console.log(error.message);
+        toast.error(error.message);
+        setIsLoading(false);
       } else {
-        console.log("Succesful");
+        console.log("Successful");
       }
     }
+    toast.dismiss();
   };
 
   const socialAction = async (oauthProvider: string) => {
     setIsLoading(true);
-    //OAuth Social SignIn
 
+    //OAuth Social SignIn
+    toast.loading("Signing in...");
     const result = await OAuthLogin(oauthProvider);
 
     //parse response
@@ -88,7 +100,8 @@ function AuthForm() {
 
     //show message
     if (error?.message) {
-      console.log(error.message);
+      toast.error(error.message);
+      setIsLoading(false);
     } else {
       console.log("Succesful");
     }
@@ -103,15 +116,17 @@ function AuthForm() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === "REGISTER" && (
-            <Input
-              icon={IoMdPerson}
-              id="username"
-              label="Username"
-              type="username"
-              register={register}
-              errors={errors}
-              disabled={isLoading}
-            />
+            <div>
+              <Input
+                icon={IoMdPerson}
+                id="username"
+                label="Username"
+                type="username"
+                register={register}
+                errors={errors}
+                disabled={isLoading}
+              />
+            </div>
           )}
           <Input
             icon={IoMdMail}
@@ -134,12 +149,13 @@ function AuthForm() {
           {variant === "REGISTER" && (
             <Input
               icon={FaLock}
-              id="confirm-password"
+              id="confirmPassword"
               label="Confirm password"
-              type="confirm-password"
+              type="password"
               register={register}
               errors={errors}
               disabled={isLoading}
+              password={getValues("password")}
             />
           )}
         </form>
@@ -189,5 +205,3 @@ function AuthForm() {
     </div>
   );
 }
-
-export default AuthForm;

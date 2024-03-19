@@ -1,5 +1,5 @@
 import SignOut from "@/components/auth/SignOut";
-import readuserSession from "@/lib/actions";
+import readuserSession from "@/lib/supabase/actions";
 import { redirect } from "next/navigation";
 import React from "react";
 
