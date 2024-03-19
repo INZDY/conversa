@@ -1,6 +1,5 @@
 "use client";
 
-import { DevTool } from "@hookform/devtools";
 import React, { Provider, useCallback } from "react";
 import { useState } from "react";
 import {
@@ -160,7 +159,6 @@ export default function AuthForm() {
             />
           )}
         </form>
-        <DevTool control={control} />
 
         <div className="mt-6">
           <Button
