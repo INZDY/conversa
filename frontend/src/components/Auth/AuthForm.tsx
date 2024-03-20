@@ -56,6 +56,7 @@ export default function AuthForm() {
       console.log("Trying to Signup");
       toast.loading("Signing up...");
       const result = await signup(data);
+      toast.dismiss();
 
       //parse response
       const { error } = JSON.parse(result);
@@ -73,6 +74,7 @@ export default function AuthForm() {
       console.log("Trying to Login");
       toast.loading("Logging in...");
       const result = await login(data);
+      toast.dismiss();
 
       //parse response
       const { error } = JSON.parse(result);
@@ -85,7 +87,6 @@ export default function AuthForm() {
         console.log("Successful");
       }
     }
-    toast.dismiss();
   };
 
   const socialAction = async (oauthProvider: string) => {

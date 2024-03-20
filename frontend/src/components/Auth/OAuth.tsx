@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/api/supabase/client";
 
 export default async function OAuthLogin(oauthProvider: string) {
   const supabase = await createClient();
@@ -20,6 +20,6 @@ export default async function OAuthLogin(oauthProvider: string) {
     });
     return JSON.stringify(result);
   } else {
-    return '';
+    return "";
   }
 }
