@@ -1,4 +1,5 @@
-import AuthForm from "@/components/auth/AuthForm";
+//import AuthForm from "@/components/auth/AuthForm";
+import Home from "@/app/home/page";
 import readuserSession from "@/api/supabase/actions";
 import { redirect } from "next/navigation";
 
@@ -23,7 +24,7 @@ export default async function page() {
         bg-gray-700
       "
     >
-      <AuthForm />
+      <Home/>
     </div>
   );
 }
