@@ -1,5 +1,4 @@
-//import AuthForm from "@/components/auth/AuthForm";
-import Home from "@/app/home/page";
+import AuthForm from "@/components/auth/AuthForm";
 import readuserSession from "@/api/supabase/actions";
 import { redirect } from "next/navigation";
 
@@ -12,8 +11,19 @@ export default async function page() {
   }
 
   return (
-    
-      <Home/>
-  
+    <div
+      className="
+      flex
+      min-h-full
+      flex-col
+      justify-center
+      py-12
+      sm:px6
+      lg:px-8
+      bg-gray-700
+      "
+    >
+      <AuthForm />
+    </div>
   );
 }
