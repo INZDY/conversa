@@ -8,7 +8,7 @@ export default async function chat() {
 
   //page protection
   if (!data.session) {
-    return redirect("/");
+    return redirect("/home");
   }
 
   return (
