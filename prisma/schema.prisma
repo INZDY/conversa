@@ -18,7 +18,7 @@ model User {
   id          Int       @id @default(autoincrement())
   accountId   String    @unique
   email       String    @unique
-  accountType String
+  // accountType String
   profiles    Profile[]
 }
 
