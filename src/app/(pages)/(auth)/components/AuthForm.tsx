@@ -49,44 +49,46 @@ export default function AuthForm() {
   });
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
+    // console.log(data);
     setIsLoading(true);
 
     if (variant === "REGISTER") {
-      console.log("Trying to Signup");
+      // console.log("Trying to Signup");
       toast.loading("Signing up...");
-      const result = await signup(data);
-      toast.dismiss();
 
-      //parse response
+      //signup & parse response
+      const result = await signup(data);
       const { error } = JSON.parse(result);
+
+      toast.dismiss();
 
       //show message
       if (error?.message) {
         toast.error(error.message);
-        setIsLoading(false);
       } else {
         toast.success("Check your inbox to confirm registration");
-        console.log("Successful");
+        toggleVariant();
       }
     }
     if (variant === "LOGIN") {
-      console.log("Trying to Login");
+      // console.log("Trying to Login");
       toast.loading("Logging in...");
-      const result = await login(data);
-      toast.dismiss();
 
-      //parse response
+      //login & parse response
+      const result = await login(data);
       const { error } = JSON.parse(result);
+
+      toast.dismiss();
 
       //show message
       if (error?.message) {
         toast.error(error.message);
-        setIsLoading(false);
       } else {
-        console.log("Successful");
+        toast.success("Login successful");
       }
     }
+
+    setIsLoading(false);
   };
 
   const socialAction = async (oauthProvider: string) => {
@@ -102,10 +104,10 @@ export default function AuthForm() {
     //show message
     if (error?.message) {
       toast.error(error.message);
-      setIsLoading(false);
     } else {
-      console.log("Succesful");
+      toast.success("Succesful");
     }
+    setIsLoading(false);
   };
 
   return (
