@@ -8,4 +8,6 @@ export default async function addUser(userId: string, userEmail: string) {
       profiles: { create: { name: "User 1" } },
     },
   });
+
+  return user;
 }
