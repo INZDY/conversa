@@ -1,4 +1,4 @@
-import AuthForm from "@/components/auth/AuthForm";
+import AuthForm from "@/app/(pages)/(auth)/components/AuthForm";
 import readuserSession from "@/api/supabase/actions";
 import { redirect } from "next/navigation";
 
