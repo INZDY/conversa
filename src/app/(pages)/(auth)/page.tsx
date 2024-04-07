@@ -1,4 +1,5 @@
 import Home from "@/app/home/page";
+import AuthForm from "@/app/(pages)/(auth)/components/AuthForm";
 import readuserSession from "@/api/supabase/actions";
 import { redirect } from "next/navigation";
 
