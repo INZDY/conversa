@@ -1,4 +1,4 @@
-import { getSession } from "@/api/actions/getSession";
+import getSession from "@/api/actions/getSession";
 import SignOut from "@/components/SignOut";
 import { redirect } from "next/navigation";
 import React from "react";
