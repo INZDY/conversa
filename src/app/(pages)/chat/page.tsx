@@ -1,10 +1,10 @@
+import { getSession } from "@/api/actions/getSession";
 import SignOut from "@/components/SignOut";
-import { readUserSession } from "@/api/supabase/actions";
 import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function chat() {
-  const { data } = await readUserSession();
+  const { data } = await getSession();
 
   //page protection
   if (!data.session) {
