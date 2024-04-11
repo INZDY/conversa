@@ -1,8 +1,7 @@
 import prisma from "@/server/prisma";
-
 import getSession from "./getSession";
 
-export default async function getCurrentUser() {
+export default async function getProfiles() {
   try {
     const sessionData = await getSession();
 
@@ -10,18 +9,17 @@ export default async function getCurrentUser() {
       return null;
     }
 
-    const currentUser = await prisma.user.findUnique({
+    const userProfiles = await prisma.profile.findMany({
       where: {
-        id: sessionData.id as string,
+        userId: sessionData.id as string,
       },
     });
 
-    if (!currentUser) {
+    if (!userProfiles) {
       return null;
     }
 
-    return currentUser;
-
+    return userProfiles;
   } catch (error: any) {
     return null;
   }

@@ -4,10 +4,10 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function chat() {
-  const { data } = await getSession();
+  const sessionData = await getSession();
 
   //page protection
-  if (!data.session) {
+  if (!sessionData) {
     return redirect("/");
   }
 
