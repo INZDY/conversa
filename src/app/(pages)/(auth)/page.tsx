@@ -1,9 +1,9 @@
 import AuthForm from "@/app/(pages)/(auth)/components/AuthForm";
-import { readuserSession } from "@/api/supabase/actions";
+import { readUserSession } from "@/api/supabase/actions";
 import { redirect } from "next/navigation";
 
 export default async function page() {
-  const { data } = await readuserSession();
+  const { data } = await readUserSession();
 
   //page protection
   if (data.session) {
