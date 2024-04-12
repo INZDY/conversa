@@ -11,7 +11,7 @@ export default async function getContacts(profileName: string) {
   try {
     const userContacts = await prisma.profile.findFirst({
       where: {
-        userId: sessionData.id as string,
+        userId: sessionData.id,
         name: profileName,
       },
       include: {

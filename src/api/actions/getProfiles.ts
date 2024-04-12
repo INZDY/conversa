@@ -10,7 +10,7 @@ export default async function getProfiles() {
 
   const userProfiles = await prisma.profile.findMany({
     where: {
-      userId: sessionData.id as string,
+      userId: sessionData.id,
     },
   });
 

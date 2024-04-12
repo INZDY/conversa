@@ -10,7 +10,7 @@ export default async function getCurrentProfile() {
 
   const currentProfile = await prisma.profile.findFirst({
     where: {
-      userId: currentUser.id as string,
+      userId: currentUser.id,
       selected: true,
     },
   });

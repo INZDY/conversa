@@ -14,7 +14,7 @@ export default async function getConversations() {
         lastMessageAt: "desc",
       },
       where: {
-        people: { some: { id: currentProfile.id as number } },
+        people: { some: { id: currentProfile.id } },
       },
       include: {
         people: true,
@@ -28,7 +28,6 @@ export default async function getConversations() {
     });
 
     return conversations;
-    
   } catch (error: any) {
     return [];
   }
