@@ -12,7 +12,7 @@ export default async function getCurrentUser() {
 
     const currentUser = await prisma.user.findUnique({
       where: {
-        id: sessionData.id as string,
+        id: sessionData.id,
       },
     });
 
@@ -21,7 +21,6 @@ export default async function getCurrentUser() {
     }
 
     return currentUser;
-
   } catch (error: any) {
     return null;
   }
