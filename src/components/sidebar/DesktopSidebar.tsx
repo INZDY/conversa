@@ -3,10 +3,21 @@
 import useRoutes from "@/hooks/useRoutes";
 import { useState } from "react";
 import DesktopItem from "./DesktopItem";
+import { Profile } from "@prisma/client";
+import Avatar from "../Avatar";
 
-export default function DesktopSidebar() {
+interface DesktopSidebarProps{
+  currentProfile: Profile
+}
+
+const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
+  currentProfile
+}) => {
+  
   const routes = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log({currentProfile})
 
   return (
     <div
@@ -56,6 +67,26 @@ export default function DesktopSidebar() {
           ))}
         </ul>
       </nav>
+      <nav
+      className="
+        mt-4
+        flex
+        flex-col
+        justify-between
+        items-center
+    ">
+      <div
+        onClick={()=>setIsOpen(true)}
+        className="
+          cursor-pointer
+          hover:opacity-75
+          transition
+      "
+      >
+        <Avatar contacts = {currentProfile}/>
+      </div>
+      </nav>
     </div>
   );
 }
+export default DesktopSidebar;
