@@ -1,6 +1,6 @@
 //User cannot add their own profiles as friends!
 //Difference from original: is an async function
-import getCurrentUser from "@/api/actions/getCurrentUser";
+import getCurrentUser from "@/backend/actions/getCurrentUser";
 import { useMemo } from "react";
 import { FullConversationType } from "@/types";
 import { Profile } from "@prisma/client";

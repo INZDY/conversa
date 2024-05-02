@@ -1,4 +1,4 @@
-import getCurrentProfile from "../actions/getCurrentProfile";
+import getCurrentProfile from "../../backend/actions/getCurrentProfile";
 import { NextResponse } from "next/server";
 import prisma from "@/server/prisma";
 
@@ -76,7 +76,6 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(newConversation);
-
   } catch (error: any) {
     return new NextResponse("Internal Error", { status: 500 });
   }

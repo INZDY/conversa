@@ -1,6 +1,6 @@
 import Sidebar from "@/components/sidebar/Sidebar";
 import ConversationList from "./components/ConversationList";
-import getConversations from "@/api/actions/getConversations";
+import getConversations from "@/backend/actions/getConversations";
 
 export default async function ChatLayout({
   children,

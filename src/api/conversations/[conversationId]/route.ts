@@ -1,4 +1,4 @@
-import getCurrentProfile from "@/api/actions/getCurrentProfile";
+import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 import prisma from "@/server/prisma";
 import { NextResponse } from "next/server";
 
@@ -39,7 +39,6 @@ export async function DELETE(
     });
 
     return NextResponse.json(deletedConversation);
-    
   } catch (error: any) {
     console.log(error, "ERROR_CONVERSATION_DELETE");
     return new NextResponse("Internal Error", { status: 500 });

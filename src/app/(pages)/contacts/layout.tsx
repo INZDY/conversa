@@ -1,7 +1,7 @@
-import getProfiles from "@/api/actions/getProfiles";
+import getProfiles from "@/backend/actions/getProfiles";
 import Sidebar from "@/components/sidebar/Sidebar";
 import ContactList from "@/app/(pages)/contacts/components/ContactList";
-import getContacts from "@/api/actions/getContacts";
+import getContacts from "@/backend/actions/getContacts";
 
 export default async function ContactLayout({
   children,

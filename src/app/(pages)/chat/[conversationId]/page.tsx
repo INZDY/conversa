@@ -1,5 +1,5 @@
-import getConversationById from "@/api/actions/getConversationById";
-import getMessages from "@/api/actions/getMessages";
+import getConversationById from "@/backend/actions/getConversationById";
+import getMessages from "@/backend/actions/getMessages";
 import EmptyState from "@/components/EmptyState";
 import Header from "./components/Header";
 import Body from "./components/Body";

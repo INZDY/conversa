@@ -1,6 +1,6 @@
 "use server";
 
-import createSupabaseServerClient from "@/api/supabase/server";
+import createSupabaseServerClient from "@/backend/supabase/server";
 import { redirect } from "next/navigation";
 
 import { FieldValues } from "react-hook-form";

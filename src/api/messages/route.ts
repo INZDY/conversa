@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import getCurrentProfile from "../actions/getCurrentProfile";
+import getCurrentProfile from "../../backend/actions/getCurrentProfile";
 import prisma from "@/server/prisma";
 
 export default async function POST(request: Request) {
@@ -51,7 +51,6 @@ export default async function POST(request: Request) {
     });
 
     return NextResponse.json(newMessage);
-    
   } catch (error: any) {
     console.log(error, "ERROR_MESSAGES");
     return new NextResponse("InternalError", { status: 500 });

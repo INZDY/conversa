@@ -1,4 +1,4 @@
-import getSession from "@/api/actions/getSession";
+import getSession from "@/backend/actions/getSession";
 import { redirect } from "next/navigation";
 import React from "react";
 import Home from "./components/Home";
@@ -11,7 +11,5 @@ export default async function chat() {
     return redirect("/");
   }
 
-  return (
-      <Home />
-  );
+  return <Home />;
 }

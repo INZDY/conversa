@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/api/supabase/client";
+import { createClient } from "@/backend/supabase/client";
 
 export default async function OAuthLogin(oauthProvider: string) {
   const supabase = await createClient();

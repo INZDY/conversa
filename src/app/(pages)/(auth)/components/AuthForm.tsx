@@ -14,8 +14,8 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import { FaGithub, FaLock } from "react-icons/fa";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
 import Button from "./inputs/Button";
-import { login, signup } from "../../../../api/auth/actions";
-import OAuthLogin from "../../../../api/auth/OAuth";
+import { login, signup } from "../../../../backend/auth/actions";
+import OAuthLogin from "../../../../backend/auth/OAuth";
 import toast from "react-hot-toast";
 
 type Variant = "LOGIN" | "REGISTER";

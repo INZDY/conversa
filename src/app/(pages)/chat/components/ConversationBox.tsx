@@ -1,6 +1,6 @@
 "use client";
 
-import getCurrentUser from "@/api/actions/getCurrentUser";
+import getCurrentUser from "@/backend/actions/getCurrentUser";
 import useOtherUser from "@/hooks/useOtherUser";
 import { FullConversationType } from "@/types";
 import clsx from "clsx";
@@ -113,7 +113,8 @@ export default async function ConversationBox({
             )}
           </div>
           <p
-            className={clsx(`
+            className={clsx(
+              `
             truncate
             text-sm
             `,

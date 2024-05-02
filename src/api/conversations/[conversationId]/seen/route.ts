@@ -1,4 +1,4 @@
-import getCurrentProfile from "@/api/actions/getCurrentProfile";
+import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 import prisma from "@/server/prisma";
 import { NextResponse } from "next/server";
 
