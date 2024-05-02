@@ -19,10 +19,10 @@ export default function ContactBox({ data }: ContactBoxProps) {
 
     axios
       .post("/api/coversations", {
-        userId: data.id,
+        profileId: data.id,
       })
       .then((data) => {
-        router.push("/conversation/${data.data.id}");
+        router.push(`/conversations/${data.data.id}`);
       })
       .finally(() => setIsLoading(false));
   }, [data, router]);
@@ -46,7 +46,7 @@ export default function ContactBox({ data }: ContactBoxProps) {
     >
       <Avatar profile={data} />
       <div className="min-w-0 flex-1">
-        <div className="forcus: outline-none">
+        <div className="focus:outline-none">
           <div
             className="
                 flex
