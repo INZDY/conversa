@@ -11,6 +11,9 @@ export default async function useOtherUser(
   const currentUser = await getCurrentUser();
 
   const otherUser = useMemo(() => {
+    //either this or currentProfile works because
+    //all profiles have same userId
+    //this covers all profiles in one go
     const currentUserId = currentUser?.id;
 
     const otherUser = conversation.people.filter(
