@@ -18,7 +18,7 @@ export default function ContactBox({ data }: ContactBoxProps) {
     setIsLoading(true);
 
     axios
-      .post("/api/coversations", {
+      .post("/api/conversations", {
         profileId: data.id,
       })
       .then((data) => {
