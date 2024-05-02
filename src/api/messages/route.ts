@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import getCurrentProfile from "../actions/getCurrentProfile";
 import prisma from "@/server/prisma";
-import { connect } from "http2";
 
 export default async function POST(request: Request) {
   try {
