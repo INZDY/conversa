@@ -22,7 +22,7 @@ export default function ContactBox({ data }: ContactBoxProps) {
         profileId: data.id,
       })
       .then((data) => {
-        router.push(`/conversations/${data.data.id}`);
+        router.push(`/chat/${data.data.id}`);
       })
       .finally(() => setIsLoading(false));
   }, [data, router]);
