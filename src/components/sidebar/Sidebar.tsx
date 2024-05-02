@@ -1,3 +1,5 @@
+'use client'
+import {useState} from 'react';
 import React from 'react';
 import { FiSettings } from "react-icons/fi";
 import { FiHome } from "react-icons/fi";
@@ -23,34 +25,43 @@ import {
 //import readuserSession from '@/api/supabase/actions';
 
 
+const Sidebar: React.FC = () => {
 
-const Sidebar = async () => {
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+  // Event handler function for button click
+  const handleClick = () => {
+    // Set buttonClicked state to true
+    setButtonClicked(true);
+    // Log message to console
+    console.log('Button clicked!');
+  };
 
   //const { data } = await readuserSession();
 
   return (
     <div className="flex flex-col items-center h-full min-w-24 w-24 bg-[#FFFFFF] gap-5 py-5">
   
-      <button className=''>
+      <button onClick={handleClick} className=''>
         <Image src={logo_icon} alt="" width={60} height={60} className='mb-3' />
       </button>
-      <button className="w-full flex flex-col items-center hover:bg-slate-200 transition ease-out delay-100 ">
+      <button onClick={handleClick} className="w-full flex flex-col items-center hover:bg-slate-200 transition ease-out delay-100 ">
       <FiHome className='w-9 h-9 mt-1 mb-0.5 text-[#9197B3]'/>
         <p className="font-medium text-sm mb-1 mt-1">Homepage</p>
       </button>
-      <button className="w-full flex flex-col items-center  hover:bg-slate-200 transition ease-out delay-100 ">
+      <button onClick={handleClick} className="w-full flex flex-col items-center  hover:bg-slate-200 transition ease-out delay-100 ">
       <RiWechatLine className='w-9 h-9 mt-1 mb-0.5 text-[#9197B3]'/>
         <p className="font-medium text-sm mb-1 mt-1">Chat</p>
       </button>
-      <button className="w-full flex flex-col items-center hover:bg-slate-200 transition ease-out delay-100 ">
+      <button onClick={handleClick} className="w-full flex flex-col items-center hover:bg-slate-200 transition ease-out delay-100 ">
       <LuUser className='w-9 h-9 mt-1 mb-1 text-[#9197B3]'/>
         <p className="font-medium text-sm mb-1">Profile</p>
       </button>
-      <button className="w-full flex flex-col items-center hover:bg-slate-200 transition ease-out delay-100 ">
+      <button onClick={handleClick} className="w-full flex flex-col items-center hover:bg-slate-200 transition ease-out delay-100 ">
       <TbUsers className='w-9 h-9 mt-2 mb-1 text-[#9197B3]'/>
         <p className="font-medium text-sm mb-1">Friends</p>
       </button>
-      <button className="w-full flex flex-col items-center hover:bg-slate-200 transition ease-out delay-100 ">
+      <button onClick={handleClick} className="w-full flex flex-col items-center hover:bg-slate-200 transition ease-out delay-100 ">
         <FiSettings className='w-9 h-9 mt-2 mb-1 text-[#9197B3]'/>
         <p className="font-medium text-sm mb-1">Setting</p>
       </button>

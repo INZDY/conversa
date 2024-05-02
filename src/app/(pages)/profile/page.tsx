@@ -1,3 +1,4 @@
+'use client'
 import { CgHome } from "react-icons/cg";
 import { BsInstagram } from "react-icons/bs";
 import { LiaFacebookSquare } from "react-icons/lia";
@@ -6,23 +7,29 @@ import ProfilePic from "@/components/Assets/Joe.png"
 import Birthday from "@/components/Assets/HBD.svg"
 import learn from "@/components/Assets/Study.svg"
 import Image from "next/image";
+import React, {useState} from "react"
+import Link from 'next/link';
 
-function Profile() {
+const Profile: React.FC = () => {
+  
   return (
     <div className=" w-screen h-screen flex">
         <Sidebar />
-      <div className="grow h-full flex overflow-y-auto overflow-x-hidden">
-      <div className="flex flex-col flex-1 items-center justify-center bg-gray-100 h-full pt-24">
-        <header className="w-11/12 px-6 pt-9 pb-24 text-3xl font-semibold text-white rounded-xl border border-white border-solid bg-zinc-800 max-md:px-5 max-md:max-w-full">
-          MY PROFILE
-        </header>
+      <div className="bg-gray-100 grow h-full flex overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-col flex-1 items-center">
+      <header className="h-full mt-20 w-11/12 px-6 pt-9 pb-24 flex items-center justify-between text-3xl font-semibold text-white rounded-xl bg-zinc-800 max-md:px-5 max-md:max-w-full">
+        <p>MY PROFILE</p>
+          <Link href="/profile/editprofile" className="px-6 py-2 text-lg font-medium rounded-md bg-white bg-opacity-30 max-md:px-5">
+            <p className="text-[#FFFFFF] text-lg font-medium">Edit Profile</p>
+          </Link>
+      </header>
         
         <main className="w-11/12 flex justify-center items-center px-16 py-20 mt-14 bg-white rounded-xl border-2 border-gray-200 border-solid shadow-sm max-md:px-5 max-md:mt-10 max-md:max-w-full">
           <div className="flex flex-col max-w-full w-full">
             <section className="self-center max-w-full w-[505px]">
               <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                 <div className="flex max-w-full w-full gap-20 justify-center">
-                  <Image src={ProfilePic} alt="" width={186} height={186} className="rounded-full object-cover aspect-square"  />
+                  <Image src={ProfilePic} alt=""  className="w-60 h-60 rounded-full object-cover aspect-square"  />
                   <h1 className="self-stretch my-auto text-4xl font-bold text-neutral-800 text-opacity-90 max-md:mt-10">
                     JOESOSEXY
                   </h1>
