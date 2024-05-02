@@ -1,19 +1,20 @@
+import getSession from "@/api/actions/getSession";
+import EmptyState from "@/components/EmptyState";
 import SignOut from "@/components/SignOut";
-import readuserSession from "@/api/supabase/actions";
 import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function chat() {
-  const { data } = await readuserSession();
+  const sessionData = await getSession();
 
   //page protection
-  if (!data.session) {
+  if (!sessionData) {
     return redirect("/");
   }
 
   return (
-    <div>
-      <div>chat</div>
+    <div className="hidden lg:block lg:pl-80 h-full">
+      <EmptyState />
       <SignOut />
     </div>
   );

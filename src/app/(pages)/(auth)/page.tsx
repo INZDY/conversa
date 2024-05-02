@@ -1,12 +1,12 @@
 import AuthForm from "@/app/(pages)/(auth)/components/AuthForm";
-import readuserSession from "@/api/supabase/actions";
 import { redirect } from "next/navigation";
+import getSession from "@/api/actions/getSession";
 
 export default async function page() {
-  const { data } = await readuserSession();
+  const sessionData = await getSession();
 
   //page protection
-  if (data.session) {
+  if (sessionData) {
     return redirect("/chat");
   }
 

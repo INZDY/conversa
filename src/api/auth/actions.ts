@@ -13,7 +13,6 @@ export async function login(formData: FieldValues) {
     password: formData.password,
   };
 
-  console.log("trying to login via email");
   const result = await supabase.auth.signInWithPassword(data);
 
   return JSON.stringify(result);
@@ -27,7 +26,6 @@ export async function signup(formData: FieldValues) {
     password: formData.password,
   };
 
-  console.log("trying to signup via email");
   const result = await supabase.auth.signUp(data);
 
   return JSON.stringify(result);
