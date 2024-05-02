@@ -1,7 +1,7 @@
 import prisma from "@/server/prisma";
 import getSession from "./getSession";
 
-export default async function getContacts(profileName: string) {
+export default async function getContacts() {
   const sessionData = await getSession();
 
   if (!sessionData) {
@@ -12,7 +12,7 @@ export default async function getContacts(profileName: string) {
     const userContacts = await prisma.profile.findFirst({
       where: {
         userId: sessionData.id,
-        name: profileName,
+        selected : true
       },
       include: {
         contacts: true,

@@ -1,15 +1,16 @@
-'use client'
+"use client"
 
 import { Profile } from "@prisma/client";
+
 import Image from "next/image";
 
 
 interface AvatarProps{
-    contacts?: Profile; 
+    profiles?: Profile; 
 }
 
 const Avatar: React.FC<AvatarProps> = ({
-    contacts
+    profiles
 }) =>{
     return(
         <div className="relative">
@@ -25,7 +26,11 @@ const Avatar: React.FC<AvatarProps> = ({
                 md:w-11
                 "
            >
-            
+            <Image
+                alt="Avatar"
+                src={profiles ?.image|| '/placeholder.png'}
+                    fill
+                />
            </div>
         </div>
     );
