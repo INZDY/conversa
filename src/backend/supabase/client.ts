@@ -1,3 +1,5 @@
+//this is only used for OAuthClient for now
+
 import { createBrowserClient } from '@supabase/ssr'
 
 export function createClient() {
