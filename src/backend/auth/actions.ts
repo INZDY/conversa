@@ -1,12 +1,12 @@
 "use server";
 
-import createSupabaseServerClient from "@/backend/supabase/server";
+import createClient from "@/backend/supabase/server";
 import { redirect } from "next/navigation";
 
 import { FieldValues } from "react-hook-form";
 
 export async function login(formData: FieldValues) {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createClient();
 
   const data = {
     email: formData.email,
@@ -19,7 +19,7 @@ export async function login(formData: FieldValues) {
 }
 
 export async function signup(formData: FieldValues) {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createClient();
 
   const data = {
     email: formData.email,
@@ -32,7 +32,7 @@ export async function signup(formData: FieldValues) {
 }
 
 export async function logout() {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createClient();
   await supabase.auth.signOut();
   redirect("/");
 }
