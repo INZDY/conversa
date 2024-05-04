@@ -1,6 +1,6 @@
 //Incomplete
+import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 import { NextResponse } from "next/server";
-import getCurrentProfile from "../actions/getCurrentProfile";
 
 export default async function POST(request: Request) {
   try {
@@ -10,5 +10,6 @@ export default async function POST(request: Request) {
   } catch (error: any) {
     console.log(error, "ERROR_SETINGS");
     return new NextResponse("Internal Error", { status: 500 });
-  }78
+  }
+  78;
 }

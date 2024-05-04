@@ -1,18 +1,18 @@
 import prisma from "@/server/prisma";
-import getSession from "./getSession";
+import getCurrentUser from "./getCurrentUser";
 
 export default async function getContacts() {
-  const sessionData = await getSession();
+  const currentUser = await getCurrentUser();
 
-  if (!sessionData) {
+  if (!currentUser) {
     return [];
   }
 
   try {
     const userContacts = await prisma.profile.findFirst({
       where: {
-        userId: sessionData.id,
-        selected : true
+        userId: currentUser.id,
+        selected: true,
       },
       include: {
         contacts: true,

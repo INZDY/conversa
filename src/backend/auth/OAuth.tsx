@@ -1,9 +1,9 @@
 "use client";
 
-import { createClient } from "@/api/supabase/client";
+import { createSupabaseBrowserClient } from "@/backend/supabase/client";
 
 export default async function OAuthLogin(oauthProvider: string) {
-  const supabase = await createClient();
+  const supabase = createSupabaseBrowserClient();
 
   if (oauthProvider === "google") {
     console.log("trying to login via google");

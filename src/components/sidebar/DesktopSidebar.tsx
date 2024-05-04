@@ -6,14 +6,13 @@ import DesktopItem from "./DesktopItem";
 import { Profile } from "@prisma/client";
 import Avatar from "../Avatar";
 
-interface DesktopSidebarProps{
-  currentProfile: Profile
+interface DesktopSidebarProps {
+  currentProfile: Profile;
 }
 
-const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
-  currentProfile
-}) => {
-  
+export default function DesktopSidebar({
+  currentProfile,
+}: DesktopSidebarProps) {
   const routes = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -66,25 +65,25 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
         </ul>
       </nav>
       <nav
-      className="
+        className="
         mt-4
         flex
         flex-col
         justify-between
         items-center
-    ">
-      <div
-        onClick={()=>setIsOpen(true)}
-        className="
+    "
+      >
+        <div
+          onClick={() => setIsOpen(true)}
+          className="
           cursor-pointer
           hover:opacity-75
           transition
       "
-      >
-        <Avatar contacts = {currentProfile}/>
-      </div>
+        >
+          <Avatar profile={currentProfile} />
+        </div>
       </nav>
     </div>
   );
 }
-export default DesktopSidebar;
