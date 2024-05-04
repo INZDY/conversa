@@ -13,8 +13,8 @@ interface HeaderProps {
   };
 }
 
-export default async function Header({ conversation }: HeaderProps) {
-  const otherUser = await useOtherUser(conversation);
+export default function Header({ conversation }: HeaderProps) {
+  const otherUser = useOtherUser(conversation);
 
   const statusText = useMemo(() => {
     if (conversation.isGroup) {

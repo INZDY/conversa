@@ -20,14 +20,14 @@ export default function Form() {
     },
   });
 
-  const onSubmit = (data: SubmitHandler<FieldValues>) => {
+  function onSubmit(data: SubmitHandler<FieldValues>) {
     setValue("message", "", { shouldValidate: true });
 
     axios.post("/api/messages", {
       ...data,
       conversationId,
     });
-  };
+  }
 
   return (
     <div
@@ -66,10 +66,7 @@ export default function Form() {
             transition
             "
         >
-          <HiPaperAirplane 
-            size={18}
-            className="text-white"
-            />
+          <HiPaperAirplane size={18} className="text-white" />
         </button>
       </form>
     </div>
