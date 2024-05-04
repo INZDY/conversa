@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 
 export async function login(formData: FieldValues) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const data = {
     email: formData.email,
@@ -19,7 +19,7 @@ export async function login(formData: FieldValues) {
 }
 
 export async function signup(formData: FieldValues) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const data = {
     email: formData.email,
@@ -32,7 +32,7 @@ export async function signup(formData: FieldValues) {
 }
 
 export async function logout() {
-  const supabase = createClient();
+  const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/");
 }
