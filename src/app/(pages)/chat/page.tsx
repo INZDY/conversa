@@ -1,15 +1,18 @@
-import getSession from "@/backend/actions/getSession";
-import { redirect } from "next/navigation";
+"use client";
+
 import React from "react";
-import Home from "./components/Home";
+import useConversation from "@/hooks/useConversation";
+import clsx from "clsx";
+import EmptyState from "@/components/EmptyState";
 
-export default async function chat() {
-  const sessionData = await getSession();
+export default function chat() {
+  const { isOpen } = useConversation();
 
-  //page protection
-  if (!sessionData) {
-    return redirect("/");
-  }
-
-  return <Home />;
+  return (
+    <div
+      className={clsx(`lg:pl-80 h-full lg:block`, isOpen ? "block" : "hidden")}
+    >
+      <EmptyState />
+    </div>
+  );
 }

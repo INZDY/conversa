@@ -1,15 +1,6 @@
 import AuthForm from "@/app/(pages)/(auth)/components/AuthForm";
-import { redirect } from "next/navigation";
-import getSession from "@/backend/actions/getSession";
 
-export default async function page() {
-  const sessionData = await getSession();
-
-  //page protection
-  if (sessionData) {
-    return redirect("/chat");
-  }
-
+export default function page() {
   return (
     <div
       className="
