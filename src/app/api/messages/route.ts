@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 import prisma from "@/server/prisma";
 
-export default async function POST(request: Request) {
+export async function POST(request: Request) {
   try {
     const currentProfile = await getCurrentProfile();
     const body = await request.json();

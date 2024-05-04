@@ -20,14 +20,14 @@ export default function Form() {
     },
   });
 
-  function onSubmit(data: SubmitHandler<FieldValues>) {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setValue("message", "", { shouldValidate: true });
 
     axios.post("/api/messages", {
       ...data,
       conversationId,
     });
-  }
+  };
 
   return (
     <div
@@ -45,7 +45,7 @@ export default function Form() {
     >
       <HiPhoto size={30} className="text-sky-500" />
       <form
-        onSubmit={handleSubmit(() => onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex items-center gap-2 lg:gap-4 w-full"
       >
         <MessageInput
