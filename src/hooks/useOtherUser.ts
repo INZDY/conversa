@@ -1,14 +1,14 @@
 //User cannot add their own profiles as friends!
-//Difference from original: is an async function
 import getCurrentUser from "@/backend/actions/getCurrentUser";
 import { useMemo } from "react";
 import { FullConversationType } from "@/types";
 import { Profile } from "@prisma/client";
+import useSession from "./useSession";
 
-export default async function useOtherUser(
+export default function useOtherUser(
   conversation: FullConversationType | { people: Profile[] }
 ) {
-  const currentUser = await getCurrentUser();
+  const currentUser = useSession();
 
   const otherUser = useMemo(() => {
     //either this or currentProfile works because

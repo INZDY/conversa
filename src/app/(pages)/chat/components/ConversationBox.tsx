@@ -1,24 +1,25 @@
 "use client";
 
-import getCurrentUser from "@/backend/actions/getCurrentUser";
 import useOtherUser from "@/hooks/useOtherUser";
 import { FullConversationType } from "@/types";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { useCallback, useMemo } from "react";
+import useSession from "@/hooks/useSession";
+import Avatar from "@/components/Avatar";
 
 interface ConversationBoxProps {
   data: FullConversationType;
   selected?: boolean;
 }
 
-export default async function ConversationBox({
+export default function ConversationBox({
   data,
   selected,
 }: ConversationBoxProps) {
-  const otherUser = await useOtherUser(data);
-  const currentUser = await getCurrentUser();
+  const otherUser = useOtherUser(data);
+  const session = useSession();
   const router = useRouter();
 
   const handleClick = useCallback(() => {
@@ -32,8 +33,8 @@ export default async function ConversationBox({
   }, [data.messages]);
 
   const userId = useMemo(() => {
-    return currentUser?.id;
-  }, [currentUser?.id]);
+    return session?.id;
+  }, [session?.id]);
 
   const hasSeen = useMemo(() => {
     if (!lastMessage) {
@@ -77,10 +78,10 @@ export default async function ConversationBox({
         cursor-pointer
         p-3
         `,
-        selected ? "block" : "hidden"
+        selected ? "bg-neutral-100" : "bg-white"
       )}
     >
-      {/* <Avatar user={otherUser}/> */}
+      <Avatar profile={otherUser}/>
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">
           <div
