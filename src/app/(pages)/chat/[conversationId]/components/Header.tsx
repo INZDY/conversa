@@ -1,5 +1,6 @@
 "use client";
 
+import Avatar from "@/components/Avatar";
 import useOtherUser from "@/hooks/useOtherUser";
 import { Conversation, Profile } from "@prisma/client";
 import Link from "next/link";
@@ -54,7 +55,7 @@ export default function Header({ conversation }: HeaderProps) {
         >
           <HiChevronLeft size={32} />
         </Link>
-        {/* <Avatar user={otherUser} /> */}
+        <Avatar profile={otherUser} />
         <div className="flex flex-col">
           <div>{conversation.name || otherUser.name}</div>
           <div
