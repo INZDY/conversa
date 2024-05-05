@@ -44,10 +44,10 @@ const Button: React.FC<ButtonProps> = ({
       focus-visible:outline-offset-2`,
         disabled && "opacity-50 cursor-default",
         fullwidth && "w-full",
-        secondary ? "text-gray-900" : "text-black",
+        secondary ? "text-gray-900 bg-transparent" : "text-white",
         danger &&
           "bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600 text-white",
-        !secondary && !danger && "bg-transparent"
+        !secondary && !danger && "bg-gray-700"
       )}
     >
       {children}

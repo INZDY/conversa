@@ -98,7 +98,7 @@ export default function ConfirmModal({ isOpen, onClose }: ConfirmModalProps) {
         <Button disabled={isLoading} danger onClick={onDelete}>
           Delete
         </Button>
-        <Button disabled={isLoading} onClick={onClose}>
+        <Button disabled={isLoading} secondary onClick={onClose}>
           Cancel
         </Button>
       </div>
