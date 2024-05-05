@@ -55,7 +55,8 @@ export default function ConversationList({
     const updateHandler = (conversation: FullConversationType) => {
       setItems((current) =>
         current.map((currentConversation) => {
-          if (currentConversation.id === conversation.id) {
+          //cast String to both for failproof
+          if (String(currentConversation.id) === String(conversation.id)) {
             return {
               ...currentConversation,
               messages: conversation.messages,
@@ -71,8 +72,8 @@ export default function ConversationList({
         return [...current.filter((convo) => convo.id !== conversation.id)];
       });
 
-      if(conversationId === conversation.id){
-        router.push('/chat')
+      if (conversationId === conversation.id) {
+        router.push("/chat");
       }
     };
 
