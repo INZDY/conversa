@@ -25,8 +25,8 @@ export async function POST(request: Request) {
             // current using userId, name of the profile to identify
             // may change to id of the profile if it is hard
             connect: [
-              ...members.map((members: { id: number }) => ({
-                id: members.id,
+              ...members.map((members: { value: number }) => ({
+                id: members.value,
               })),
               {
                 id: currentProfile.id,
