@@ -6,7 +6,7 @@ export default function useConversation() {
 
   const conversationId = useMemo(() => {
     if (!params?.conversationId) {
-      return "";
+      return null;
     }
     return +params.conversationId;
   }, [params?.conversationId]);
