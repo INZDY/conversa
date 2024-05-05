@@ -24,6 +24,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       include: {
         messages: {
           include: { seen: true },
+          orderBy: { created: "asc" },
         },
         people: true,
       },
