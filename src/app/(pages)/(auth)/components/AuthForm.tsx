@@ -8,12 +8,12 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import Input from "@/app/(pages)/(auth)/components/inputs/Input";
+import Input from "@/components/Input";
 import AuthSocialButton from "./AuthSocialButton";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { FaGithub, FaLock } from "react-icons/fa";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
-import Button from "./inputs/Button";
+import Button from "../../../../components/Button";
 import { login, signup } from "../../../../backend/auth/actions";
 import OAuthLogin from "../../../../backend/auth/OAuth";
 import toast from "react-hot-toast";
