@@ -5,6 +5,7 @@ import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { HiPaperAirplane, HiPhoto } from "react-icons/hi2";
 import MessageInput from "./MessageInput";
+import { CldUploadButton } from "next-cloudinary";
 
 export default function Form() {
   const { conversationId } = useConversation();
@@ -20,14 +21,21 @@ export default function Form() {
     },
   });
 
-  function onSubmit(data: SubmitHandler<FieldValues>) {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setValue("message", "", { shouldValidate: true });
 
     axios.post("/api/messages", {
       ...data,
       conversationId,
     });
-  }
+  };
+
+  const handleUpload = (result: any) => {
+    axios.post("/api/messages", {
+      image: result?.info?.secure_url,
+      conversationId,
+    });
+  };
 
   return (
     <div
@@ -43,9 +51,15 @@ export default function Form() {
     w-full
   "
     >
-      <HiPhoto size={30} className="text-sky-500" />
+      <CldUploadButton
+        options={{ maxFiles: 1 }}
+        onSuccess={handleUpload}
+        uploadPreset="pkflhwsa"
+      >
+        <HiPhoto size={30} className="text-sky-500" />
+      </CldUploadButton>
       <form
-        onSubmit={handleSubmit(() => onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex items-center gap-2 lg:gap-4 w-full"
       >
         <MessageInput

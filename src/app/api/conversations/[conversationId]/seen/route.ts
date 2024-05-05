@@ -18,7 +18,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     //Find existing conversations
     const conversation = await prisma.conversation.findUnique({
       where: {
-        id: conversationId,
+        id: Number(conversationId),
       },
       include: {
         messages: {
@@ -56,6 +56,8 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         },
       },
     });
+
+    return NextResponse.json(upadatedMessage);
   } catch (error: any) {
     console.log(error, "ERROR_MESSAGES_SEEN");
     return new NextResponse("Internal Error", { status: 500 });

@@ -68,7 +68,7 @@ export default function ConversationList({
           <ConversationBox
             key={item.id}
             data={item}
-            selected={conversationId === item.id.toString()}
+            selected={conversationId === item.id}
           />
         ))}
       </div>

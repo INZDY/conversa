@@ -20,7 +20,7 @@ export async function DELETE(
 
     const existingConversation = await prisma.conversation.findUnique({
       where: {
-        id: conversationId,
+        id: Number(conversationId),
       },
       include: {
         people: true,
@@ -33,7 +33,7 @@ export async function DELETE(
 
     const deletedConversation = await prisma.conversation.deleteMany({
       where: {
-        id: conversationId,
+        id: Number(conversationId),
         people: { some: { id: currentProfile.id } },
       },
     });
