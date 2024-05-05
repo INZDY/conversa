@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { useCallback, useMemo } from "react";
 import useSession from "@/hooks/useSession";
 import Avatar from "@/components/Avatar";
+import AvatarGroup from "@/components/AvatarGroup";
 
 interface ConversationBoxProps {
   data: FullConversationType;
@@ -81,7 +82,11 @@ export default function ConversationBox({
         selected ? "bg-neutral-100" : "bg-white"
       )}
     >
-      <Avatar profile={otherUser}/>
+      {data.isGroup ? (
+        <AvatarGroup profiles={data.people} />
+      ) : (
+        <Avatar profile={otherUser} />
+      )}
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">
           <div
