@@ -41,7 +41,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     }
 
     //Updata seen of last message
-    const upadatedMessage = await prisma.message.update({
+    const updatedMessage = await prisma.message.update({
       where: {
         id: lastMessage.id,
       },
@@ -61,7 +61,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     //Pusher
     await pusherServer.trigger(currentProfile.userId, "conversation:update", {
       id: conversationId,
-      messages: [upadatedMessage],
+      messages: [updatedMessage],
     });
 
     if (
@@ -73,10 +73,10 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     await pusherServer.trigger(
       String(conversationId!),
       "message:update",
-      upadatedMessage
+      updatedMessage
     );
 
-    return NextResponse.json(upadatedMessage);
+    return NextResponse.json(updatedMessage);
   } catch (error: any) {
     console.log(error, "ERROR_MESSAGES_SEEN");
     return new NextResponse("Internal Error", { status: 500 });
