@@ -95,7 +95,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
                     hover:text-gray-500
                     focus:outline-none
                     focus:ring-2
-                    focus:ring-sky-500
+                    focus:ring-gray-500
                     focus:ring-offset-2
                 "
                   >

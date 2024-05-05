@@ -35,7 +35,9 @@ const Input: React.FC<InputProps> = ({
             form-input
             w-full
             border-0
-            focus:ring-0`,
+            sm:rounded-lg
+            focus:ring-2
+            focus:ring-gray-500`,
             errors[id] && "focus:ring-rose-500",
             disabled && "opacity-50 cursor-default"
           )}
