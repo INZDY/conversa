@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
       justify-center
       items-center
       rounded-md
-      h-8
+      h-12
       px-3
       py-2
       text-base
@@ -44,10 +44,10 @@ const Button: React.FC<ButtonProps> = ({
       focus-visible:outline-offset-2`,
         disabled && "opacity-50 cursor-default",
         fullwidth && "w-full",
-        secondary ? "text-gray-900" : "text-black",
+        secondary ? "text-gray-900" : "text-white",
         danger &&
-          "bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600 text-white",
-        !secondary && !danger && "bg-transparent"
+          "bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600",
+        !secondary && !danger && "bg-gradient-to-r from-black to-gray-500"
       )}
     >
       {children}
