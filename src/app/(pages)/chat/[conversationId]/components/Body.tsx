@@ -22,10 +22,12 @@ export default function Body({ initialMessages }: BodyProps) {
     axios.post(`/api/conversations/${conversationId}/seen`);
   }, [conversationId]);
 
+  //Pusher
   useEffect(() => {
     pusherClient.subscribe(String(conversationId));
     bottomRef?.current?.scrollIntoView();
 
+    //realtime message
     const messageHandler = (message: FullMessageType) => {
       axios.post(`/api/conversations/${conversationId}/seen`);
 
@@ -40,11 +42,26 @@ export default function Body({ initialMessages }: BodyProps) {
       bottomRef?.current?.scrollIntoView();
     };
 
+    //realtime seen
+    const updateMessageHandler = (newMessage: FullMessageType) => {
+      setMessages((current) =>
+        current.map((currentMessage) => {
+          if (currentMessage.id === newMessage.id) {
+            return newMessage;
+          }
+
+          return currentMessage;
+        })
+      );
+    };
+
     pusherClient.bind("messages:new", messageHandler);
+    pusherClient.bind("message:update", updateMessageHandler);
 
     return () => {
       pusherClient.unsubscribe(String(conversationId));
       pusherClient.unbind("messages:new", messageHandler);
+      pusherClient.unbind("message:update", updateMessageHandler);
     };
   }, [[conversationId]]);
 

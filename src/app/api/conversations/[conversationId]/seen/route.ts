@@ -1,5 +1,6 @@
 import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 import prisma from "@/server/prisma";
+import { pusherServer } from "@/server/pusher";
 import { NextResponse } from "next/server";
 
 interface IParams {
@@ -56,6 +57,24 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         },
       },
     });
+
+    //Pusher
+    await pusherServer.trigger(currentProfile.userId, "conversation:update", {
+      id: conversationId,
+      messages: [upadatedMessage],
+    });
+
+    if (
+      lastMessage.seen.some((user) => user.userId === currentProfile.userId)
+    ) {
+      return NextResponse.json(conversation);
+    }
+
+    await pusherServer.trigger(
+      String(conversationId!),
+      "message:update",
+      upadatedMessage
+    );
 
     return NextResponse.json(upadatedMessage);
   } catch (error: any) {
