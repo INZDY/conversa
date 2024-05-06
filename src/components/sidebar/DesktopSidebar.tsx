@@ -6,9 +6,14 @@ import DesktopItem from "./DesktopItem";
 import { Profile } from "@prisma/client";
 import Avatar from "../Avatar";
 
+
+
+
 interface DesktopSidebarProps{
   currentProfile: Profile
 }
+
+
 
 const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   currentProfile
@@ -16,7 +21,10 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   
   const routes = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
-
+  const handleProfileClick = () => {
+    setIsOpen(!isOpen);
+  };
+  
   return (
     <div
       className="
@@ -80,8 +88,11 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           hover:opacity-75
           transition
       "
-      >
-        <Avatar contacts = {currentProfile}/>
+      > 
+       <div>
+       <Avatar  contacts = {currentProfile} onClick={handleProfileClick}/>
+       </div>
+        
       </div>
       </nav>
     </div>

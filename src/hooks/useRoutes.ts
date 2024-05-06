@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
-import { HiChat } from "react-icons/hi";
+import { HiChat,HiIdentification } from "react-icons/hi";
 import { HiArrowLeftOnRectangle, HiUsers } from "react-icons/hi2";
 import useConversation from "./useConversation";
 import { logout } from "@/api/auth/actions";
@@ -28,11 +28,18 @@ export default function useRoutes() {
         active: pathname === "/contacts",
       },
       {
+        label: "Users",
+        href: "/profilesel",
+        icon: HiIdentification,
+        active: pathname === "/profilesel",
+      },
+      {
         label: "Logout",
         href: "#",
         onClick: () => logout(),
         icon: HiArrowLeftOnRectangle
       },
+      
     ],
     [pathname, conversationId]
   );
