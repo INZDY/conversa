@@ -5,18 +5,22 @@ export default async function getProfiles() {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return null;
+    return [];
   }
 
-  const userProfiles = await prisma.profile.findMany({
-    where: {
-      userId: currentUser.id,
-    },
-  });
+  try {
+    const userProfiles = await prisma.profile.findMany({
+      where: {
+        userId: currentUser.id,
+      },
+    });
 
-  if (!userProfiles) {
-    return null;
+    if (!userProfiles) {
+      return [];
+    }
+
+    return userProfiles;
+  } catch (error: any) {
+    return [];
   }
-
-  return userProfiles;
 }
