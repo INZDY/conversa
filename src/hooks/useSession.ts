@@ -7,9 +7,12 @@ export default function useSession() {
 
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
-    supabase.auth.getUser().then((session) => {
-      setCurrentSession(session.data.user)
-    })
+    const getSession = async () => {
+      const session = await supabase.auth.getUser();
+      setCurrentSession(session.data.user);
+    };
+
+    getSession();
   }, []);
 
   return currentSession;

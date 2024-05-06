@@ -1,5 +1,4 @@
-import getSession from "@/backend/actions/getSession";
-import useSession from "@/hooks/useSession";
+import createSupabaseApiRouteClient from "@/backend/supabase/api";
 import { pusherServer } from "@/server/pusher";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -7,7 +6,11 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  const session = await getSession();
+  const supabase = createSupabaseApiRouteClient(request, response);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const session = user;
 
   if (!session?.id) {
     return response.status(401);
