@@ -1,8 +1,8 @@
 import prisma from "@/server/prisma";
-import getCurrentUser from "./getCurrentUser";
+import getSession from "./getSession";
 
 export default async function getProfiles() {
-  const currentUser = await getCurrentUser();
+  const sessionData = await getSession();
 
   if (!sessionData) {
     return [];
