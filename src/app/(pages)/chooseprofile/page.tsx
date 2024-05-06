@@ -1,21 +1,21 @@
-import Sidebar from "@/components/sidebar/Sidebar";
- 
+import getSession from "@/api/actions/getSession";
+import { redirect } from "next/navigation";
+import React  from "react";
+import Profile from "@/components/ChooseProfile/Profile";
 
 
-function EditProfile() {
-    return (
-        <div className=" w-screen h-screen flex">
-        <Sidebar />
-        <div className="grow h-full flex overflow-y-auto overflow-x-hidden">
-      <div className="flex flex-col flex-1 items-center justify-center bg-gray-100 h-full ">
-     
-        
-      
-      </div>
-    </div>
-    </div>
-    );
+export default async function profile() {
+  const sessionData = await getSession();
+  //page protection
+  if (!sessionData) {
+    return redirect("/");
   }
-  
-  export default EditProfile;
+
+  return (
+    <div >
+        <Profile />
+    </div>
+    
+  );
+}
   

@@ -24,6 +24,8 @@ const Avatar: React.FC<AvatarProps> = ({
                 w-9
                 md:h-11
                 md:w-11
+                aspect-square
+                object-cover
                 "
            >
             <Image

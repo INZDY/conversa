@@ -1,4 +1,5 @@
 'use client'
+
 import { CgHome } from "react-icons/cg";
 import { BsInstagram } from "react-icons/bs";
 import { LiaFacebookSquare } from "react-icons/lia";
@@ -7,10 +8,23 @@ import ProfilePic from "@/components/Assets/Joe.png"
 import Birthday from "@/components/Assets/HBD.svg"
 import learn from "@/components/Assets/Study.svg"
 import Image from "next/image";
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import Link from 'next/link';
+import getCurrentProfile from "@/api/actions/getCurrentProfile";
+import { Profile } from "@prisma/client";
 
-const Profile: React.FC = () => {
+const ProfilePage: React.FC = () => {
+  // const [currentProfile, setCurrentProfile] = useState<Profile>(null)
+  
+  const [currentProfile, setCurrentProfile] = useState<Profile | null>(null)
+
+  useEffect(() => {
+    (async () => {
+      const cur = await getCurrentProfile()
+      console.log(cur)
+      setCurrentProfile(cur)
+    })()
+  }, [])
   
   return (
     <div className=" w-screen h-screen flex">
@@ -29,9 +43,9 @@ const Profile: React.FC = () => {
             <section className="self-center max-w-full w-[505px]">
               <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                 <div className="flex max-w-full w-full gap-20 justify-center">
-                  <Image src={ProfilePic} alt=""  className="w-60 h-60 rounded-full object-cover aspect-square"  />
+                  <Image src={currentProfile?.image || ""} alt=""  className="w-60 h-60 rounded-full object-cover aspect-square"  />
                   <h1 className="self-stretch my-auto text-4xl font-bold text-neutral-800 text-opacity-90 max-md:mt-10">
-                    JOESOSEXY
+                    {currentProfile?.name || "Anonymous"}
                   </h1>
                 </div>
               </div>
@@ -84,4 +98,4 @@ const Profile: React.FC = () => {
   );
 }
 
-export default Profile;
+export default ProfilePage;

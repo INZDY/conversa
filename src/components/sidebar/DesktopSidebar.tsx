@@ -6,6 +6,7 @@ import DesktopItem from "./DesktopItem";
 import { Profile } from "@prisma/client";
 import Avatar from "../Avatar";
 
+
 interface DesktopSidebarProps{
   currentProfile: Profile
 }
@@ -21,7 +22,6 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     <div
       className="
       hidden
-      lg:fixed
       lg:inset-y-0
       lg:left-0
       lg:z-40
@@ -34,8 +34,10 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
       lg:flex
       lg:flex-col
       justify-between
+      h-full
     "
     >
+      
       <nav
         className="
         mt-4
