@@ -1,7 +1,7 @@
 import React from "react";
 import DesktopSidebar from "./DesktopSidebar";
 import MobileFooter from "./MobileFooter";
-import getCurrentProfile from "@/api/actions/getCurrentProfile";
+import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 
 export default async function Sidebar({
   children,
@@ -11,8 +11,8 @@ export default async function Sidebar({
   const currentProfile = await getCurrentProfile();
   return (
     <div className="h-full">
-        <DesktopSidebar currentProfile = {currentProfile!}/>
-        <MobileFooter />
+      <DesktopSidebar currentProfile={currentProfile!} />
+      <MobileFooter />
       <main className="lg:pl-20 h-full">{children}</main>
     </div>
   );
