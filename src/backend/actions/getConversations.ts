@@ -23,6 +23,7 @@ export default async function getConversations() {
             sender: true,
             seen: true,
           },
+          orderBy: { created: "asc" },
         },
       },
     });

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 import prisma from "@/server/prisma";
+import { pusherServer } from "@/server/pusher";
 
 export async function POST(request: Request) {
   try {
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
         image: image,
         conversation: {
           connect: {
-            id: conversationId
+            id: conversationId,
           },
         },
         sender: { connect: { id: currentProfile.id } },
@@ -48,6 +49,19 @@ export async function POST(request: Request) {
           },
         },
       },
+    });
+
+    //Pusher
+    await pusherServer.trigger(String(conversationId), "messages:new", newMessage);
+
+    const lastMessage =
+      updatedConversation.messages[updatedConversation.messages.length - 1];
+
+    updatedConversation.people.map((user) => {
+      pusherServer.trigger(user.userId!, "conversation:update", {
+        id: conversationId,
+        messages: [lastMessage],
+      });
     });
 
     return NextResponse.json(newMessage);

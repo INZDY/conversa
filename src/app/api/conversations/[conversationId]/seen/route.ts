@@ -1,5 +1,6 @@
 import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 import prisma from "@/server/prisma";
+import { pusherServer } from "@/server/pusher";
 import { NextResponse } from "next/server";
 
 interface IParams {
@@ -23,6 +24,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       include: {
         messages: {
           include: { seen: true },
+          orderBy: { created: "asc" },
         },
         people: true,
       },
@@ -40,7 +42,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     }
 
     //Updata seen of last message
-    const upadatedMessage = await prisma.message.update({
+    const updatedMessage = await prisma.message.update({
       where: {
         id: lastMessage.id,
       },
@@ -57,7 +59,25 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       },
     });
 
-    return NextResponse.json(upadatedMessage);
+    //Pusher
+    await pusherServer.trigger(currentProfile.userId, "conversation:update", {
+      id: conversationId,
+      messages: [updatedMessage],
+    });
+
+    if (
+      lastMessage.seen.some((user) => user.userId === currentProfile.userId)
+    ) {
+      return NextResponse.json(conversation);
+    }
+
+    await pusherServer.trigger(
+      String(conversationId!),
+      "message:update",
+      updatedMessage
+    );
+
+    return NextResponse.json(updatedMessage);
   } catch (error: any) {
     console.log(error, "ERROR_MESSAGES_SEEN");
     return new NextResponse("Internal Error", { status: 500 });

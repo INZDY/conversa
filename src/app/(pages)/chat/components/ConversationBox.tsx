@@ -24,7 +24,7 @@ export default function ConversationBox({
   const router = useRouter();
 
   const handleClick = useCallback(() => {
-    router.push(`/chat/${data.id}`);
+    router.push(`/chat/${data.id.toString()}`);
   }, [data.id, router]);
 
   const lastMessage = useMemo(() => {

@@ -1,6 +1,7 @@
 import getCurrentProfile from "@/backend/actions/getCurrentProfile";
 import { NextResponse } from "next/server";
 import prisma from "@/server/prisma";
+import { pusherServer } from "@/server/pusher";
 
 export async function POST(request: Request) {
   try {
@@ -39,15 +40,23 @@ export async function POST(request: Request) {
         },
       });
 
+      //Pusher
+      newConversation.people.forEach((user) => {
+        if (user.userId) {
+          pusherServer.trigger(
+            user.userId,
+            "conversation:new",
+            newConversation
+          );
+        }
+      });
+
       return NextResponse.json(newConversation);
     }
 
     const existingConversations = await prisma.conversation.findMany({
       where: {
-        AND: [
-          { people: { some: { id: currentProfile.id } } },
-          { people: { some: { id: profileId } } },
-        ],
+        people: { every: { id: { in: [currentProfile.id, profileId] } } },
       },
     });
 
@@ -73,6 +82,13 @@ export async function POST(request: Request) {
       include: {
         people: true,
       },
+    });
+
+    //Pusher
+    newConversation.people.forEach((user) => {
+      if (user.userId) {
+        pusherServer.trigger(user.userId, "conversation:new", newConversation);
+      }
     });
 
     return NextResponse.json(newConversation);

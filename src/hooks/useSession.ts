@@ -6,18 +6,12 @@ export default function useSession() {
   const [currentSession, setCurrentSession] = useState<User | null>(null);
 
   useEffect(() => {
-    async function getSession() {
-      try {
-        const supabase = createSupabaseBrowserClient();
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
+    const supabase = createSupabaseBrowserClient();
+    const getSession = async () => {
+      const session = await supabase.auth.getUser();
+      setCurrentSession(session.data.user);
+    };
 
-        return setCurrentSession(user);
-      } catch (error: any) {
-        console.log("Error retrieving current user", error);
-      }
-    }
     getSession();
   }, []);
 
