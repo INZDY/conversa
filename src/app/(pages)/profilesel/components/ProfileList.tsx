@@ -16,28 +16,34 @@ export default function ProfileList({ items }: ProfileListProps) {
 
   return (
     <>
-      <div className="bg-background ">
-        <h1 className="flex text-3xl justify-center text-center mt-8 font-bold">
-          Select the Profile
+      <div className="py-24 mb-12">
+        <h1 className=" flex text-5xl justify-center text-center font-bold">
+          Profiles
         </h1>
-        <AddProfile
-          
-          isOpen={isOpen}
-          onClose={() => SetIsOpen(false)}
-        />
+        <AddProfile isOpen={isOpen} onClose={() => SetIsOpen(false)} />
 
         <button
           onClick={() => {
             SetIsOpen(true);
           }}
-          className="flex justify-center items-center w-24 h-24 fixed  right-24  "
+          className="
+          flex 
+          ustify-center 
+          items-center 
+          w-24 
+          h-24 
+          fixed 
+          right-24
+          rounded-3xl
+          hover:bg-neutral-100
+          "
         >
           <span className="ml-2">Add Profile</span>
           <HiOutlinePlus className="w-1/4 h-1/4 " />
         </button>
 
-        <div className="flex border-stone-950 border-2 items-center justify-center mt-48 ">
-          <div className="flex flex-wrap gap-4  justify-evenly  border-2 w-2/3 ">
+        <div className="flex items-center justify-center mt-20">
+          <div className="flex flex-wrap gap-12 justify-around w-3/4">
             {items &&
               items.map((item) => (
                 <ProfileSelectedBox key={item.id} data={item} />
