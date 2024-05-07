@@ -15,7 +15,13 @@ export async function POST(request: Request) {
     const searchedResult = await prisma.profile.findMany({
       where: {
         name: name,
-        NOT: { contactsOf: { some: { id: currentProile.id } } },
+        // not already a friend & not have the same userId
+        NOT: {
+          OR: [
+            { contactsOf: { some: { id: currentProile.id } } },
+            { userId: currentProile.userId },
+          ],
+        },
       },
     });
 

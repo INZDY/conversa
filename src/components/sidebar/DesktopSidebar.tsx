@@ -6,6 +6,7 @@ import DesktopItem from "./DesktopItem";
 import { Profile } from "@prisma/client";
 import Avatar from "../Avatar";
 import ProfileSwitchModal from "./ProfileSwitchModal";
+import Image from "next/image";
 
 interface DesktopSidebarProps {
   currentProfile: Profile;
@@ -34,14 +35,15 @@ export default function DesktopSidebar({
       lg:left-0
       lg:z-40
       lg:w-20
-      xl:px-6
+      
       lg:overflow-y-auto
       lg:bg-white
       lg:border-r-[1px]
-      lg:pb-4
+      
       lg:flex
       lg:flex-col
       justify-between
+      items-center
     "
       >
         <nav
@@ -50,8 +52,13 @@ export default function DesktopSidebar({
         flex
         flex-col
         justify-between
+        items-center
       "
         >
+          <div className="mb-4">
+
+        <Image width="60" height="60" src={"/conversa-logo.png"} alt="Logo" />
+          </div>
           <ul
             role="list"
             className="

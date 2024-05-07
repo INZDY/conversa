@@ -42,6 +42,10 @@ export default function ProfileSwitchBox({
         flex
         justify-between
         items-center
+        rounded-md
+        px-4
+        py-2
+        hover:bg-neutral-100
       "
     >
       <div
