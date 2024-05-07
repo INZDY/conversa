@@ -6,40 +6,37 @@ export async function POST(request: Request) {
   try {
     const currentProfile = await getCurrentProfile();
     const body = await request.json();
-    const { name,image, desciption } = body;
-   
-    if(!currentProfile?.id){
-      return new NextResponse('Unauthorized',{status:401});
+    const { name, image, description, displayEmail } = body;
+
+    if (!currentProfile?.id) {
+      return new NextResponse("Unauthorized", { status: 401 });
     }
-    
+
     const checkProfile = await prisma.profile.findMany({
-     where:{
-       name: name,
-       userId: currentProfile.userId,
-     }
-     
-    })
-   
-    if (checkProfile.length !== 0){
-     return new NextResponse("Duplicated profile name", { status: 502 });
+      where: {
+        name: name,
+        userId: currentProfile.userId,
+      },
+    });
+
+    if (checkProfile.length !== 0) {
+      return new NextResponse("Duplicated profile name", { status: 502 });
     }
 
     const createProfile = await prisma.profile.create({
-     
       data: {
-        user:{connect:{id:currentProfile.userId}},
+        user: { connect: { id: currentProfile.userId } },
         name: name,
         image: image,
-        description: desciption,
+        description: description,
+        displayEmail: displayEmail,
         selected: false,
-        
-      }
+      },
     });
 
-    return NextResponse.json(createProfile)
+    return NextResponse.json(createProfile);
   } catch (error: any) {
     console.log(error, "ERROR_SETINGS");
     return new NextResponse("Internal Error", { status: 500 });
   }
-  
 }

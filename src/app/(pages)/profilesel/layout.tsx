@@ -1,11 +1,9 @@
-
 import Sidebar from "@/components/sidebar/Sidebar";
 
 import getProfiles from "@/backend/actions/getProfiles";
 import getSession from "@/backend/actions/getSession";
 import { redirect } from "next/navigation";
 import ProfileList from "./components/ProfileList";
-
 
 export default async function ProfileselLayout({
   children,
@@ -22,10 +20,9 @@ export default async function ProfileselLayout({
   return (
     <Sidebar>
       <div className="h-full">
-        
         {children}
-        <ProfileList items = {profiles}/>
-        </div>
+        <ProfileList items={profiles} />
+      </div>
     </Sidebar>
   );
 }

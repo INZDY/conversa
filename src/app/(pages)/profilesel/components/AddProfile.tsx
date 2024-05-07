@@ -86,8 +86,16 @@ export function AddProfile({ isOpen, onClose }: AddProfileProps) {
               />
               <Input
                 disabled={isLoading}
-                label="Desciption"
-                id="desciption"
+                label="Display Email"
+                id="displayEmail"
+                errors={errors}
+                required={false}
+                register={register}
+              />
+              <Input
+                disabled={isLoading}
+                label="Description"
+                id="description"
                 errors={errors}
                 required={false}
                 register={register}
@@ -96,6 +104,7 @@ export function AddProfile({ isOpen, onClose }: AddProfileProps) {
             <label
               className="
               block
+              mt-4
               text-sm
               font-medium
               leading-6
@@ -119,15 +128,15 @@ export function AddProfile({ isOpen, onClose }: AddProfileProps) {
                 src={image || "/placeholder.png"}
                 alt="Avatar"
               />
-            <CldUploadButton
-              options={{ maxFiles: 1 }}
-              onSuccess={handleUpload}
-              uploadPreset="pkflhwsa"
-            >
-              <Button disabled={isLoading} secondary type="button">
-                Upload
-              </Button>
-            </CldUploadButton>
+              <CldUploadButton
+                options={{ maxFiles: 1 }}
+                onSuccess={handleUpload}
+                uploadPreset="pkflhwsa"
+              >
+                <Button disabled={isLoading} secondary type="button">
+                  Upload
+                </Button>
+              </CldUploadButton>
             </div>
           </div>
 
@@ -140,7 +149,12 @@ export function AddProfile({ isOpen, onClose }: AddProfileProps) {
              gap-x-6
             "
           >
-            <Button disabled={isLoading} secondary onClick={onClose}>
+            <Button
+              disabled={isLoading}
+              secondary
+              onClick={onClose}
+              type="button"
+            >
               Cancel
             </Button>
             <Button disabled={isLoading} type="submit">
