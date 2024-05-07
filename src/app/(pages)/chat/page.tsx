@@ -5,7 +5,7 @@ import useConversation from "@/hooks/useConversation";
 import clsx from "clsx";
 import EmptyState from "@/components/EmptyState";
 
-export default function chat() {
+export default function Chat() {
   const { isOpen } = useConversation();
 
   return (

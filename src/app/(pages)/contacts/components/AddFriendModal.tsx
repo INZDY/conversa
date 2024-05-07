@@ -72,7 +72,7 @@ export default function AddFriendModal({
               text-gray-900
             "
             >
-              Please enter your friend's name
+              Please enter your friend&apos;s name
             </p>
             <div
               className="
