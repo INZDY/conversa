@@ -31,7 +31,7 @@ export default function DesktopItem({
         className={clsx(`
           group
           flex
-          gap-x-3
+          mt-2
           rounded-md
           p-3
           text-sm
