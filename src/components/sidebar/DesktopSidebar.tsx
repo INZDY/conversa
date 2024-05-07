@@ -8,6 +8,9 @@ import Avatar from "../Avatar";
 import ProfileSwitchModal from "./ProfileSwitchModal";
 import Image from "next/image";
 
+
+
+
 interface DesktopSidebarProps {
   currentProfile: Profile;
   allProfiles: Profile[];
@@ -19,7 +22,10 @@ export default function DesktopSidebar({
 }: DesktopSidebarProps) {
   const routes = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
-
+  const handleProfileClick = () => {
+    setIsOpen(!isOpen);
+  };
+  
   return (
     <>
       <ProfileSwitchModal
