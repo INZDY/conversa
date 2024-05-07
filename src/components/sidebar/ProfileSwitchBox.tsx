@@ -20,17 +20,21 @@ export default function ProfileSwitchBox({
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSwitch = useCallback(() => {
-    setIsLoading(true);
-    axios
-      .post(`/api/profile/switch`)
-      .then(() => {
-        onClose();
-        router.refresh();
-      })
-      .catch(() => toast.error("Something went wrong."))
-      .finally(() => setIsLoading(false));
-  }, [router, onClose]);
+  const onSwitch = useCallback(
+    (data: any) => {
+      setIsLoading(true);
+      axios
+        .post(`/api/profile/switch`, data)
+        .then(() => {
+          onClose();
+          router.push("/");
+          router.refresh();
+        })
+        .catch(() => toast.error("Something went wrong."))
+        .finally(() => setIsLoading(false));
+    },
+    [router, onClose]
+  );
 
   return (
     <div
@@ -46,7 +50,7 @@ export default function ProfileSwitchBox({
       flex-1
       flex-row
       items-center
-      gap-x-12
+      gap-x-10
       
     "
       >
@@ -57,10 +61,20 @@ export default function ProfileSwitchBox({
           src={data.image || "/placeholder.png"}
           alt="Avatar"
         />
-        {data.name}
+        <div
+          className="
+          font-medium
+          text-lg
+        "
+        >
+          {data.name}
+        </div>
       </div>
 
-      <Button disabled={data.selected || isLoading} onClick={onSwitch}>
+      <Button
+        disabled={data.selected || isLoading}
+        onClick={() => onSwitch(data)}
+      >
         {data.selected ? "Current" : "Switch"}
       </Button>
     </div>

@@ -13,6 +13,9 @@ export default async function getProfiles() {
       where: {
         userId: currentUser.id,
       },
+      orderBy: {
+        name: "asc",
+      },
     });
 
     if (!userProfiles) {
