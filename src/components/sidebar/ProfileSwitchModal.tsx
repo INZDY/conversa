@@ -23,9 +23,9 @@ export default function ProfileSwitchModal({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="
-        px-12
-        py-8
-        space-y-12
+        px-4
+        py-4
+        space-y-8
       ">
         {allProfiles.map((profile) => (
           <ProfileSwitchBox key={profile.id} data={profile} onClose={onClose}/>

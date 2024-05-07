@@ -4,28 +4,28 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const currentProile = await getCurrentProfile();
+    const currentProfile = await getCurrentProfile();
     const body = await request.json();
-    const { name } = body;
+    const { name, image, description, profileId, displayEmail } = body;
 
-    if (!currentProile?.userId) {
+    if (!currentProfile?.id) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
-    const searchedResult = await prisma.profile.findMany({
+  
+    //removed check same name because we already check before calling this
+    const updatedProfile = await prisma.profile.update({
       where: {
+        id: profileId,
+      },
+      data: {
+        image: image,
         name: name,
-        // not already a friend & not have the same userId
-        NOT: {
-          OR: [
-            { contactsOf: { some: { id: currentProile.id } } },
-            { userId: currentProile.userId },
-          ],
-        },
+        description: description,
+        displayEmail: displayEmail,
       },
     });
 
-    return NextResponse.json(searchedResult);
+    return NextResponse.json(updatedProfile);
   } catch (error: any) {
     console.log(error, "ERROR_SETINGS");
     return new NextResponse("Internal Error", { status: 500 });
