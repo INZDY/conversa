@@ -56,8 +56,12 @@ export default function DesktopSidebar({
       "
         >
           <div className="mb-4">
-
-        <Image width="60" height="60" src={"/conversa-logo.png"} alt="Logo" />
+            <Image
+              width="60"
+              height="60"
+              src={"/conversa-logo.png"}
+              alt="Logo"
+            />
           </div>
           <ul
             role="list"
