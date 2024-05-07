@@ -10,6 +10,7 @@ import Avatar from "@/components/Avatar";
 import Modal from "@/components/Modal";
 import ConfirmModal from "./ConfirmModal";
 import AvatarGroup from "@/components/AvatarGroup";
+import useActiveList from "@/hooks/useActiveList";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -26,6 +27,8 @@ export default function ProfileDrawer({
 }: ProfileDrawerProps) {
   const otherUser = useOtherUser(data);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const { members } = useActiveList();
+  const isActive = members.indexOf(otherUser.userId!) !== -1;
 
   //We don't have created time for our profiles
   //   const joinDate = useMemo(() => {
@@ -41,7 +44,7 @@ export default function ProfileDrawer({
       return `${data.people.length} members`;
     }
 
-    return "Active";
+    return isActive ? "Active" : "Offline";
   }, [data]);
 
   return (
