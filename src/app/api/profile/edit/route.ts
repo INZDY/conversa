@@ -6,12 +6,12 @@ export async function POST(request: Request) {
   try {
     const currentProfile = await getCurrentProfile();
     const body = await request.json();
-    const { name, image } = body;
+    const { name, image, desciption ,profileId } = body;
    
     if(!currentProfile?.id){
       return new NextResponse('Unauthorized',{status:401});
     }
-
+    console.log("here",body)
     const checkProfile = await prisma.profile.findMany({
       where:{
         name: name,
@@ -23,14 +23,15 @@ export async function POST(request: Request) {
      if (checkProfile.length !== 0){
       return new NextResponse("Duplicated profile name", { status: 502 });
      }
-
+    console.log("here2")
     const updatedProfile = await prisma.profile.update({
       where:{
-        id: currentProfile.id
+        id: profileId
       },
       data: {
         image: image,
-        name: name
+        name: name,
+        description: desciption,
       }
     });
 

@@ -2,7 +2,7 @@
 
 import { Profile } from "@prisma/client";
 import axios from "axios";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Image from "next/image";
@@ -11,17 +11,20 @@ import Input from "@/components/inputs/Input";
 import { CldUploadButton } from "next-cloudinary";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
+import { error } from "console";
 
 interface EditProfileProps{
     isOpen?: boolean;
     onClose: ()=> void;
     data: Profile;
+    
 }
 
 
 
 export default function EditProfile({isOpen,onClose,data}:EditProfileProps) {
 
+    const profileId = data.id;
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -49,9 +52,11 @@ export default function EditProfile({isOpen,onClose,data}:EditProfileProps) {
     }
 
     const onSubmit: SubmitHandler<FieldValues>=(data)=>{
+       
+        const newData = {...data,profileId}
         setIsLoading(true);
 
-        axios.post('/api/profile/edit',data)
+        axios.post('/api/profile/edit',newData)
         .then(()=>{
             router.refresh();
             onClose();
@@ -59,10 +64,22 @@ export default function EditProfile({isOpen,onClose,data}:EditProfileProps) {
         .catch(()=> toast.error('Something went wrong!'))
         .finally(()=> setIsLoading(false))
     }
+
+    const onDelete=useCallback((data:any)=>{
+        setIsLoading(true);
+
+        axios.post('/api/profile/delete',data)
+        .then(()=>{
+            router.refresh();
+            onClose();
+        })
+        .catch(()=> toast.error('Something went wrong!'))
+        .finally(()=> setIsLoading(false))
+    },[router,onClose])
     
     return(
         <Modal isOpen={isOpen} onClose={onClose}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} >
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12">
                         <h2 className="
@@ -88,6 +105,14 @@ export default function EditProfile({isOpen,onClose,data}:EditProfileProps) {
                                 id="name"
                                 errors={errors}
                                 required
+                                register={register}
+                            />
+                            <Input
+                                disabled={isLoading}
+                                label="Desciption"
+                                id="desciption"
+                                errors={errors}
+                                required={false}
                                 register={register}
                             />
                         </div>
@@ -141,6 +166,15 @@ export default function EditProfile({isOpen,onClose,data}:EditProfileProps) {
                     justify-end
                     gap-x-6
                 ">
+
+                    <Button
+                        disabled={data.selected||isLoading}
+                        danger
+                        onClick={()=>onDelete(data)}
+
+                    >
+                        Delete
+                    </Button>   
                     <Button
                         disabled={isLoading}
                         secondary
@@ -153,7 +187,7 @@ export default function EditProfile({isOpen,onClose,data}:EditProfileProps) {
                         type="submit"
                     >
                         Save
-                        </Button>
+                    </Button>
 
                 </div>
             </form>

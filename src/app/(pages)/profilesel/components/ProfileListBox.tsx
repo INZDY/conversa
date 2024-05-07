@@ -18,7 +18,8 @@ export default function ProfileListBox({data}:ProfileListBoxProps){
     const [isOpen,SetIsOpen] = useState(false)
 
     return(
-        <div  className = "flex justify-evenly items-center">
+        <div  className = "flex flex-wrap justify-evenly items-center">
+            
             <div>
             <EditProfile
                 data ={data}
@@ -26,18 +27,21 @@ export default function ProfileListBox({data}:ProfileListBoxProps){
                 onClose={()=>SetIsOpen(false)}
             
             />
-            <div className="flex justify-center items-center justify-center bg-red-500 ">
+            <div className="flex flex-col items-center bg-blue-950 border-2 p-6 w-48 h-48 rounded-md">
 
                 <button onClick= {()=> {SetIsOpen(true)}}  >
+
+                <div className="flex justify-center items-center">
+                    <Image width="64" height="64" src={data.image||"/placeholder.png"} alt="Avatar"/>
+                </div>
                 
-                    <Image width="60" height="60" src={data.image||"/placeholder.png"} alt="Avatar"/>
                 </button>
-                <p className=" mt-2 text-center">
+                <p className=" mt-6 text-center  text-gray-50 border-2">
                     {data?.name}
                 </p>
             </div>
             </div>
-            
+           
         </div>
     );
 
