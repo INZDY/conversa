@@ -5,16 +5,19 @@ import { useState } from "react";
 import DesktopItem from "./DesktopItem";
 import { Profile } from "@prisma/client";
 import Avatar from "../Avatar";
+import ProfileSwitchModal from "./ProfileSwitchModal";
 
 
 
 
 interface DesktopSidebarProps {
   currentProfile: Profile;
+  allProfiles: Profile[];
 }
 
 export default function DesktopSidebar({
   currentProfile,
+  allProfiles,
 }: DesktopSidebarProps) {
   const routes = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +26,14 @@ export default function DesktopSidebar({
   };
   
   return (
-    <div
-      className="
+    <>
+      <ProfileSwitchModal
+        allProfiles={allProfiles}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
+      <div
+        className="
       hidden
       lg:fixed
       lg:inset-y-0
@@ -40,56 +49,57 @@ export default function DesktopSidebar({
       lg:flex-col
       justify-between
     "
-    >
-      <nav
-        className="
+      >
+        <nav
+          className="
         mt-4
         flex
         flex-col
         justify-between
       "
-      >
-        <ul
-          role="list"
-          className="
+        >
+          <ul
+            role="list"
+            className="
                 flex
                 flex-col
                 items-center
                 space-y-1
             "
-        >
-          {routes.map((item) => (
-            <DesktopItem
-              key={item.label}
-              href={item.href}
-              label={item.label}
-              icon={item.icon}
-              active={item.active}
-              onClick={item.onClick}
-            />
-          ))}
-        </ul>
-      </nav>
-      <nav
-        className="
+          >
+            {routes.map((item) => (
+              <DesktopItem
+                key={item.label}
+                href={item.href}
+                label={item.label}
+                icon={item.icon}
+                active={item.active}
+                onClick={item.onClick}
+              />
+            ))}
+          </ul>
+        </nav>
+        <nav
+          className="
         mt-4
         flex
         flex-col
         justify-between
         items-center
     "
-      >
-        <div
-          onClick={() => setIsOpen(true)}
-          className="
+        >
+          <div
+            onClick={() => setIsOpen(true)}
+            className="
           cursor-pointer
           hover:opacity-75
           transition
       "
-        >
-          <Avatar profile={currentProfile} />
-        </div>
-      </nav>
-    </div>
+          >
+            <Avatar profile={currentProfile} />
+          </div>
+        </nav>
+      </div>
+    </>
   );
 }

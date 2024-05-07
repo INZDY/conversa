@@ -1,20 +1,21 @@
 import prisma from "@/server/prisma";
-import getSession from "./getSession";
+import getCurrentUser from "./getCurrentUser";
 
 export default async function getProfiles() {
-  const sessionData = await getSession();
+  const currentUser = await getCurrentUser();
 
-  if (!sessionData) {
+  if (!currentUser) {
     return [];
   }
 
   try {
     const userProfiles = await prisma.profile.findMany({
       where: {
-        userId: sessionData.id,
-       
+        userId: currentUser.id,
       },
-     
+      orderBy: {
+        name: "asc",
+      },
     });
 
     if (!userProfiles) {
